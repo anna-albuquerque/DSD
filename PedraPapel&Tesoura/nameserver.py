@@ -2,5 +2,8 @@ import Pyro4
 
 # Inicialize o Name Server
 Pyro4.config.SERVERTYPE = "multiplex"
-Pyro4.naming.NameServerDaemon.serveSimple(
-    host="localhost", port=9090, enableBroadcast=True)
+
+with Pyro4.Daemon(host="localhost", port=9090) as daemon:
+    ns = Pyro4.locateNS()
+    daemon.register(ns, "Pyro.NameServer")
+    daemon.requestLoop()
