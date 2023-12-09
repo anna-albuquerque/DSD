@@ -1,7 +1,9 @@
 from flask import Flask, request
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -11,7 +13,7 @@ def home():
 def api_gateway():
     if request.method == 'POST':
         message = request.form['message']
-        response1 = requests.post('http://localhost:5001/api1', data={'message': message})
+        response1 = requests.get('https://api.thedogapi.com/v1/images/search')
         response2 = requests.post('http://localhost:5002/api2', data={'message': message})
         return response1.text + "\n" + response2.text
     else:

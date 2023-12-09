@@ -37,12 +37,12 @@ python -m venv venv
 .\venv\Scripts\activate
 python.exe -m pip install --upgrade pip
 pip install flask requests
+pip install flask_cors
 ```
 ## Execução do programa 
 Abra um terminal para cada API
 ```
 python gateway.py
-python api1.py
 python api2.py
 ```
 Abra o navegador e verifique se as rotas das APIs estão funcionais, após verificar abra o arquivo cliente.html no  navegador.

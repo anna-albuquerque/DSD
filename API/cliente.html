@@ -10,5 +10,37 @@
   <input type="submit" value="Enviar">
 </form> 
 
+<div id="api1"> </div>
+<div id="api2"> </div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  fetch('http://localhost:5000/api_gateway', {
+    method: 'POST',
+    body: new FormData(document.querySelector('form'))
+  })
+  .then(response => response.json())
+  .then(data => {
+    const api1 = data[0];
+    const api2 = data[1];
+
+    // Cria um novo elemento de imagem para a API 1
+    const img = document.createElement('img');
+    img.src = api1.url;
+    img.alt = 'Imagem do cão';
+    img.width = 200;  // Redimensiona a imagem para caber na página
+
+    // Limpa qualquer conteúdo anterior e adiciona a imagem à div da API 1
+    const div1 = document.getElementById('api1');
+    div1.textContent = '';
+    div1.appendChild(img);
+
+    // Exibe a resposta da API 2
+    document.getElementById('api2').textContent = 'API 2: ' + api2;
+  });
+});
+</script>
+
 </body>
 </html>
